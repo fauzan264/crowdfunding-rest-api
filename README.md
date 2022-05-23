@@ -1,1 +1,2 @@
-# crowdfunding-rest-api
+# Crowdfunding Rest API sederhana
+Ini adalah pembuatan Rest API mengenai crowdfunding menggunakan Golang, hasil pembelajaran saya dari hasil kursus. Ada beberapa yang saya tambahkan dan sampai saat ini masih saya coba kembangkan dengan versi saya mungkin di repository yang lain.
