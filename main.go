@@ -9,6 +9,7 @@ import(
 	"gorm.io/gorm"
 	_ "github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"time"
 )
 
 func main() {
@@ -25,12 +26,18 @@ func main() {
 
 	id, _ := uuid.NewRandom()
 	userRepository := user.NewRepository(db)
-	user := user.User{
-		ID: id.String(),
-		Name: "Baru Nih",
-	}
+	userService := user.NewService(userRepository)
 
-	userRepository.Save(user)
+	userInput := user.RegisterUserInput{}
+	userInput.ID = id
+	userInput.Name = "Ahmad"
+	userInput.Email = "ahmad@mail.com"
+	userInput.Occupation = "penulis kode"
+	userInput.Password = "password"
+	userInput.CreatedAt = time.Now()
+
+	userService.RegisterUser(userInput)
+	
 }
 
 // func handlerUser(c *gin.Context) {
