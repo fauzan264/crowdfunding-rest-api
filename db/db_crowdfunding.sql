@@ -29,17 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `campaign` (
   `id` varchar(50) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `slug_name` varchar(100) NOT NULL,
-  `short_description` varchar(50) NOT NULL,
-  `description` text NOT NULL,
-  `goal_amount` int(11) NOT NULL,
-  `current_amount` int(11) NOT NULL,
-  `perks` text NOT NULL,
-  `becker_count` int(11) NOT NULL,
-  `created_by` varchar(50) NOT NULL,
+  `name` varchar(100),
+  `slug_name` varchar(100),
+  `short_description` varchar(50),
+  `description` text,
+  `goal_amount` int(11),
+  `current_amount` int(11),
+  `perks` text,
+  `becker_count` int(11),
+  `created_by` varchar(50),
   `updated_by` varchar(50) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -50,13 +50,13 @@ CREATE TABLE `campaign` (
 --
 
 CREATE TABLE `campaign_image` (
-  `id` varchar(50) NOT NULL,
-  `campaign_id` varchar(50) NOT NULL,
-  `file_name` varchar(100) NOT NULL,
-  `is_primary` tinyint(4) NOT NULL,
-  `created_by` varchar(50) NOT NULL,
+  `id` varchar(50) ,
+  `campaign_id` varchar(50),
+  `file_name` varchar(100),
+  `is_primary` tinyint(4),
+  `created_by` varchar(50),
   `updated_by` varchar(50) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -68,14 +68,14 @@ CREATE TABLE `campaign_image` (
 
 CREATE TABLE `transaction` (
   `id` varchar(50) NOT NULL,
-  `campaign_id` varchar(50) NOT NULL,
-  `user_id` varchar(50) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `code` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `created_by` varchar(50) NOT NULL,
+  `campaign_id` varchar(50),
+  `user_id` varchar(50),
+  `amount` int(11),
+  `code` int(11),
+  `status` int(11),
+  `created_by` varchar(50),
   `updated_by` varchar(50) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -86,17 +86,17 @@ CREATE TABLE `transaction` (
 --
 
 CREATE TABLE `user` (
-  `id` varchar(50) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `id` varchar(50) DEFAULT NULL,
+  `name` varchar(100),
   `email` varchar(50) DEFAULT NULL,
-  `password` varchar(200) NOT NULL,
-  `occupation` varchar(100) NOT NULL,
-  `image` varchar(100) NOT NULL,
-  `role` varchar(20) NOT NULL,
-  `token` varchar(100) NOT NULL,
-  `created_by` varchar(50) NOT NULL,
-  `update_by` varchar(50) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
+  `password` varchar(200),
+  `occupation` varchar(100),
+  `image` varchar(100),
+  `role` varchar(20),
+  `token` varchar(100),
+  `created_by` varchar(50),
+  `updated_by` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
