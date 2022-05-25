@@ -1,13 +1,14 @@
 package main
 
-import(
+import (
 	"crowdfunding-rest-api/user"
+	"crowdfunding-rest-api/handler"
 	"log"
 	_ "net/http"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	_ "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -25,14 +26,14 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
-	userInput := user.RegisterUserInput{}
-	userInput.Name = "Fauzan ganteng"
-	userInput.Email = "fauzannn@mail.com"
-	userInput.Occupation = "tukang ketik"
-	userInput.Password = "password"
-
-	userService.RegisterUser(userInput)
+	userHandler := handler.NewUserHandler(userService)
 	
+	router := gin.Default()
+	api := router.Group("/api/v1")
+
+	api.POST("/user", userHandler.RegisterUser)
+
+	router.Run()
 }
 
 // func handlerUser(c *gin.Context) {
