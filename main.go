@@ -8,8 +8,6 @@ import(
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	_ "github.com/gin-gonic/gin"
-	"github.com/google/uuid"
-	"time"
 )
 
 func main() {
@@ -24,21 +22,14 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	id, err := uuid.NewRandom()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
 	userInput := user.RegisterUserInput{}
-	userInput.ID = id
-	userInput.Name = "Ahmad"
-	userInput.Email = "ahmad@mail.com"
-	userInput.Occupation = "penulis kode"
+	userInput.Name = "Fauzan ganteng"
+	userInput.Email = "fauzannn@mail.com"
+	userInput.Occupation = "tukang ketik"
 	userInput.Password = "password"
-	userInput.CreatedAt = time.Now()
 
 	userService.RegisterUser(userInput)
 	
