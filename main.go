@@ -24,7 +24,11 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	id, _ := uuid.NewRandom()
+	id, err := uuid.NewRandom()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
