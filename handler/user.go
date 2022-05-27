@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 	"crowdfunding-rest-api/user"
+	"crowdfunding-rest-api/helper"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,9 +24,12 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 	}
 
 	user, err := h.userService.RegisterUser(input)
+	
 	if err != nil {
 		c.JSON(http.StatusBadRequest, nil)
 	}
 
-	c.JSON(http.StatusOK, user)
+	response := helper.APIResponse("Account has been registered", http.StatusOK, "success", user)
+
+	c.JSON(http.StatusOK, response)
 }
