@@ -47,3 +47,7 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 	// message success
 	c.JSON(http.StatusOK, response)
 }
+
+func (h *userHandler) Login(c *gin.Context) {
+	
+}
