@@ -6,7 +6,7 @@ import (
 	"log"
 	_ "net/http"
 
-	"fmt"
+	_ "fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"github.com/gin-gonic/gin"
@@ -25,25 +25,13 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
-	input := user.LoginInput{
-		Email : "fauzan@mail.com",
-		Password : "password",
-	}
-	user, err := userService.Login(input)
-	if err != nil {
-		fmt.Println("Terjadi kesalahan")
-		fmt.Println(err.Error())
-	}
-
-	fmt.Println(user.Email)
-	fmt.Println(user.Password)
-
 	userHandler := handler.NewUserHandler(userService)
 	
 	router := gin.Default()
 	api := router.Group("/api/v1")
 
 	api.POST("/user", userHandler.RegisterUser)
+	api.POST("/login", userHandler.Login)
 
 	router.Run()
 }
