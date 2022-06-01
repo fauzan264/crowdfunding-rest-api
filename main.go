@@ -10,7 +10,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
+	_ "github.com/google/uuid"
 )
 
 func main() {
@@ -25,16 +25,18 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
-	userByEmail, err := userRepository.FindByEmail("faajdfjalfuzan@mail.com")
+	input := user.LoginInput{
+		Email : "fauzan@mail.com",
+		Password : "password",
+	}
+	user, err := userService.Login(input)
 	if err != nil {
+		fmt.Println("Terjadi kesalahan")
 		fmt.Println(err.Error())
 	}
 
-	if userByEmail.ID == uuid.Nil {
-		fmt.Println("User tidak ditemukan")
-	} else {
-		fmt.Println(userByEmail.Name)
-	}
+	fmt.Println(user.Email)
+	fmt.Println(user.Password)
 
 	userHandler := handler.NewUserHandler(userService)
 	
