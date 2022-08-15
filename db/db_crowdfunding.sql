@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `campaign`
+-- Table structure for table `campaigns`
 --
 
-CREATE TABLE `campaign` (
+CREATE TABLE `campaigns` (
   `id` varchar(50) NOT NULL,
   `name` varchar(100),
   `slug_name` varchar(100),
@@ -46,10 +46,10 @@ CREATE TABLE `campaign` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `campaign_image`
+-- Table structure for table `campaign_images`
 --
 
-CREATE TABLE `campaign_image` (
+CREATE TABLE `campaign_images` (
   `id` varchar(50) ,
   `campaign_id` varchar(50),
   `file_name` varchar(100),
@@ -63,10 +63,10 @@ CREATE TABLE `campaign_image` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaction`
+-- Table structure for table `transactions`
 --
 
-CREATE TABLE `transaction` (
+CREATE TABLE `transactions` (
   `id` varchar(50) NOT NULL,
   `campaign_id` varchar(50),
   `user_id` varchar(50),
@@ -82,10 +82,10 @@ CREATE TABLE `transaction` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id` varchar(50) DEFAULT NULL,
   `name` varchar(100),
   `email` varchar(50) DEFAULT NULL,
@@ -105,27 +105,27 @@ CREATE TABLE `user` (
 --
 
 --
--- Indexes for table `campaign`
+-- Indexes for table `campaigns`
 --
-ALTER TABLE `campaign`
+ALTER TABLE `campaigns`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `campaign_image`
+-- Indexes for table `campaign_images`
 --
-ALTER TABLE `campaign_image`
+ALTER TABLE `campaign_images`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaction`
+-- Indexes for table `transactions`
 --
-ALTER TABLE `transaction`
+ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user`
+-- Indexes for table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 COMMIT;
 
