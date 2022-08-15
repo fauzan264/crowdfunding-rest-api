@@ -2,8 +2,9 @@ package handler
 
 import (
 	"net/http"
-	"crowdfunding-rest-api/user"
-	"crowdfunding-rest-api/helper"
+
+	"github.com/fauzan264/crowdfunding-rest-api/helper"
+	"github.com/fauzan264/crowdfunding-rest-api/user"
 	"github.com/gin-gonic/gin"
 )
 
