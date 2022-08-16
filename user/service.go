@@ -1,16 +1,18 @@
 package user
 
 import (
-	"golang.org/x/crypto/bcrypt"
-	"github.com/google/uuid"
-	"time"
 	"errors"
+	"time"
+
+	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type Service interface {
 	RegisterUser(input RegisterUserInput) (User, error)
 	Login(input LoginInput) (User, error)
 	IsEmailAvailable(input CheckEmailInput) (bool, error)
+	SaveAvatar(id uuid.UUID, fileLocation string) (User, error)
 }
 
 type service struct {
@@ -84,8 +86,24 @@ func (s *service) IsEmailAvailable(input CheckEmailInput) (bool, error) {
 
 	// check user
 	if user.ID == uuid.Nil {
-		return true,nil
+		return true, nil
 	}
 
 	return false, nil
+}
+
+func (s *service) SaveAvatar(id uuid.UUID, fileLocation string) (User, error) {
+	user, err := s.repository.FindById(id)
+	if err != nil {
+		return user, err
+	}
+
+	user.Image = fileLocation
+
+	updatedUser, err := s.repository.Update(user)
+	if err != nil {
+		return updatedUser, err
+	}
+
+	return updatedUser, nil
 }
