@@ -9,7 +9,6 @@ import (
 	"github.com/fauzan264/crowdfunding-rest-api/helper"
 	"github.com/fauzan264/crowdfunding-rest-api/user"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 type userHandler struct {
@@ -147,7 +146,9 @@ func (h *userHandler) UploadAvatar(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
-	userId := uuid.MustParse("d0837349-eb4f-4864-acc6-e06f6c4676b6")
+
+	currentUser := c.MustGet("currentUser").(user.User)
+	userId := currentUser.ID
 
 	path := fmt.Sprintf("images/%s-%s.png", userId, time.Now().Format("20060102150405"))
 

@@ -4,13 +4,18 @@ import (
 	"fmt"
 	_ "fmt"
 	"log"
+	"net/http"
 	_ "net/http"
+	"strings"
 
 	"github.com/fauzan264/crowdfunding-rest-api/auth"
 	"github.com/fauzan264/crowdfunding-rest-api/handler"
+	"github.com/fauzan264/crowdfunding-rest-api/helper"
 	"github.com/fauzan264/crowdfunding-rest-api/user"
+	"github.com/golang-jwt/jwt/v4"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	_ "github.com/google/uuid"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -57,7 +62,50 @@ func main() {
 	api.POST("/user", userHandler.RegisterUser)
 	api.POST("/login", userHandler.Login)
 	api.POST("/email_checker", userHandler.CheckEmailAvailability)
-	api.POST("/avatar", userHandler.UploadAvatar)
+	api.POST("/avatar", authMiddleware(authService, userService), userHandler.UploadAvatar)
 
 	router.Run()
+}
+
+func authMiddleware(authService auth.Service, userService user.Service) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		authHeader := c.GetHeader("Authorization")
+
+		if !strings.Contains(authHeader, "Bearer") {
+			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
+			return
+		}
+
+		tokenString := ""
+		arrayToken := strings.Split(authHeader, " ")
+		if len(arrayToken) == 2 {
+			tokenString = arrayToken[1]
+		}
+
+		token, err := authService.ValidateToken(tokenString)
+		if err != nil {
+			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
+			return
+		}
+
+		claim, ok := token.Claims.(jwt.MapClaims)
+		if !ok || !token.Valid {
+			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
+			return
+		}
+
+		userId := uuid.MustParse(claim["user_id"].(string))
+
+		user, err := userService.GetUserById(userId)
+		if err != nil {
+			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
+			return
+		}
+
+		c.Set("currentUser", user)
+	}
 }
