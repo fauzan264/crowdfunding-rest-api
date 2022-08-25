@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/fauzan264/crowdfunding-rest-api/auth"
+	"github.com/fauzan264/crowdfunding-rest-api/campaign"
 	"github.com/fauzan264/crowdfunding-rest-api/handler"
 	"github.com/fauzan264/crowdfunding-rest-api/helper"
 	"github.com/fauzan264/crowdfunding-rest-api/user"
@@ -31,28 +32,28 @@ func main() {
 	}
 
 	userRepository := user.NewRepository(db)
+	campaignRepository := campaign.NewRepository(db)
+
+	campaigns, err := campaignRepository.FindByUserId(uuid.MustParse("12c51403-0ac3-4ed4-901b-52c3d13f329e"))
+
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fmt.Println("debug")
+	fmt.Println("debug")
+	fmt.Println("debug")
+	fmt.Println(len(campaigns))
+	for _, campaign := range campaigns {
+		fmt.Println(campaign.Name)
+		fmt.Println(campaign.CampaignImages[0].FileName)
+	}
+
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
 
 	// id := uuid.MustParse("d0837349-eb4f-4864-acc6-e06f6c4676b6")
 	// fmt.Println(authService.GenerateToken(id))
-
-	token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDBiMWEyMjYtZDI1My00NDE1LTk0OGUtYWE5YzlmMzZjYzdjIn0.7PfwXxts0rmXHCBqyYhBE5TpSV81Mc4-7vaN0N9qBXo")
-	if err != nil {
-		fmt.Println("ERROR")
-		fmt.Println("ERROR")
-		fmt.Println("ERROR")
-	}
-
-	if token.Valid {
-		fmt.Println("VALID")
-		fmt.Println("VALID")
-		fmt.Println("VALID")
-	} else {
-		fmt.Println("INVALID")
-		fmt.Println("INVALID")
-		fmt.Println("INVALID")
-	}
 
 	userHandler := handler.NewUserHandler(userService, authService)
 

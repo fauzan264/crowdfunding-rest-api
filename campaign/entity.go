@@ -9,6 +9,7 @@ import (
 type Campaign struct {
 	Id               uuid.UUID
 	UserId           uuid.UUID
+	Name             string
 	ShortDescription string
 	Description      string
 	Perks            string
@@ -16,8 +17,11 @@ type Campaign struct {
 	GoalAmount       int
 	CurrentAmount    int
 	Slug             string
+	CreatedBy        uuid.UUID
+	UpdatedBy        uuid.UUID
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
+	CampaignImages   []CampaignImage
 }
 
 type CampaignImage struct {
