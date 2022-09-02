@@ -34,23 +34,18 @@ func main() {
 	userRepository := user.NewRepository(db)
 	campaignRepository := campaign.NewRepository(db)
 
-	campaigns, err := campaignRepository.FindByUserId(uuid.MustParse("12c51403-0ac3-4ed4-901b-52c3d13f329e"))
-
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-
-	fmt.Println("debug")
-	fmt.Println("debug")
-	fmt.Println("debug")
-	fmt.Println(len(campaigns))
-	for _, campaign := range campaigns {
-		fmt.Println(campaign.Name)
-		fmt.Println(campaign.CampaignImages[0].FileName)
-	}
-
 	userService := user.NewService(userRepository)
+	campaignService := campaign.NewService(campaignRepository)
 	authService := auth.NewService()
+
+	// userId := uuid.MustParse("adfjakdf")
+
+	// if len(userId) < 16 {
+	// 	log.Fatal("Wrong UUID")
+	// }
+
+	campaigns, _ := campaignService.FindCampaigns("")
+	fmt.Println(len(campaigns))
 
 	// id := uuid.MustParse("d0837349-eb4f-4864-acc6-e06f6c4676b6")
 	// fmt.Println(authService.GenerateToken(id))
