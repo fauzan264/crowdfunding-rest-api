@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	_ "fmt"
 	"log"
 	"net/http"
@@ -44,13 +43,14 @@ func main() {
 	// 	log.Fatal("Wrong UUID")
 	// }
 
-	campaigns, _ := campaignService.FindCampaigns("")
-	fmt.Println(len(campaigns))
+	// campaigns, _ := campaignService.FindCampaigns("")
+	// fmt.Println(len(campaigns))
 
 	// id := uuid.MustParse("d0837349-eb4f-4864-acc6-e06f6c4676b6")
 	// fmt.Println(authService.GenerateToken(id))
 
 	userHandler := handler.NewUserHandler(userService, authService)
+	campaignHandler := handler.NewCampaignHandler(campaignService)
 
 	router := gin.Default()
 	api := router.Group("/api/v1")
@@ -60,6 +60,8 @@ func main() {
 	api.POST("/email_checker", userHandler.CheckEmailAvailability)
 	api.POST("/avatar", authMiddleware(authService, userService), userHandler.UploadAvatar)
 
+	// campaign
+	api.GET("/campaign", campaignHandler.GetCampaigns)
 	router.Run()
 }
 

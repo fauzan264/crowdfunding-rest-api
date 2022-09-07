@@ -1,9 +1,11 @@
 package campaign
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+)
 
 type Service interface {
-	FindCampaigns(userId string) ([]Campaign, error)
+	GetCampaigns(userId string) ([]Campaign, error)
 }
 
 type service struct {
@@ -14,10 +16,10 @@ func NewService(repository Repository) *service {
 	return &service{repository}
 }
 
-func (s *service) FindCampaigns(userId string) ([]Campaign, error) {
+func (s *service) GetCampaigns(userId string) ([]Campaign, error) {
+
 	if userId != "" {
 		campaigns, err := s.repository.FindByUserId(uuid.MustParse(userId))
-
 		if err != nil {
 			return campaigns, err
 		}
