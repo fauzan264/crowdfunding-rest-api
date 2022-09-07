@@ -2,6 +2,7 @@ package auth
 
 import (
 	"errors"
+	"os"
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
@@ -15,18 +16,19 @@ type Service interface {
 type jwtService struct {
 }
 
-var SECRET_KEY = []byte("f4UzaN_s3cr3tKeYs")
+var SECRET_KEY = os.Getenv("SECRET_KEY_CROWDFUNDING")
 
 func NewService() *jwtService {
 	return &jwtService{}
 }
 
 func (s *jwtService) GenerateToken(userId uuid.UUID) (string, error) {
+
 	claim := jwt.MapClaims{}
 	claim["user_id"] = userId
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
-	signedToken, err := token.SignedString(SECRET_KEY)
+	signedToken, err := token.SignedString([]byte(SECRET_KEY))
 	if err != nil {
 		return signedToken, err
 	}

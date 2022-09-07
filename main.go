@@ -9,6 +9,7 @@ import (
 
 	"github.com/fauzan264/crowdfunding-rest-api/auth"
 	"github.com/fauzan264/crowdfunding-rest-api/campaign"
+	"github.com/fauzan264/crowdfunding-rest-api/db"
 	"github.com/fauzan264/crowdfunding-rest-api/handler"
 	"github.com/fauzan264/crowdfunding-rest-api/helper"
 	"github.com/fauzan264/crowdfunding-rest-api/user"
@@ -17,37 +18,21 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	_ "github.com/google/uuid"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 )
 
 func main() {
 
-	dsn := "root:@tcp(127.0.0.1:3306)/db_crowdfunding?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-
+	err := db.Connection()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	userRepository := user.NewRepository(db)
-	campaignRepository := campaign.NewRepository(db)
+	userRepository := user.NewRepository(db.Conn)
+	campaignRepository := campaign.NewRepository(db.Conn)
 
 	userService := user.NewService(userRepository)
 	campaignService := campaign.NewService(campaignRepository)
 	authService := auth.NewService()
-
-	// userId := uuid.MustParse("adfjakdf")
-
-	// if len(userId) < 16 {
-	// 	log.Fatal("Wrong UUID")
-	// }
-
-	// campaigns, _ := campaignService.FindCampaigns("")
-	// fmt.Println(len(campaigns))
-
-	// id := uuid.MustParse("d0837349-eb4f-4864-acc6-e06f6c4676b6")
-	// fmt.Println(authService.GenerateToken(id))
 
 	userHandler := handler.NewUserHandler(userService, authService)
 	campaignHandler := handler.NewCampaignHandler(campaignService)
