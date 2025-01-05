@@ -1,12 +1,12 @@
 # BWA Crowdfunding REST API
 
 ## Description
-This project is a copy of the back-end from the **crowdfunding** project available at [https://github.com/fauzan264/crowdfunding/tree/master/backend](https://github.com/fauzan264/crowdfunding/tree/master/backend), adapted and implemented using **Laravel 11.37.0**. The project involves building a secure and scalable REST API with **JWT** for authentication and **PostgreSQL** as the database solution.
+This project is a copy of the back-end from the **crowdfunding** project available at [https://github.com/fauzan264/crowdfunding/tree/master/backend](https://github.com/fauzan264/crowdfunding/tree/master/backend), adapted and implemented using **Laravel 10.48.25**. The project involves building a secure and scalable REST API with **JWT** for authentication and **PostgreSQL** as the database solution.
 
 ## Learning Flow
 
 ### API Development with Laravel
-The back-end is built using **Laravel 11.37.0**, leveraging its routing, middleware, and Eloquent ORM for efficient database interaction. The goal is to build an efficient API that handles various crowdfunding operations.
+The back-end is built using **Laravel 10.48.25**, leveraging its routing, middleware, and Eloquent ORM for efficient database interaction. The goal is to build an efficient API that handles various crowdfunding operations.
 
 ### Authentication with JWT
 Implement **JWT** (JSON Web Tokens) for secure, token-based user authentication, allowing users to access protected endpoints after successful login.
@@ -19,7 +19,7 @@ This implementation includes custom optimizations and added features, such as se
 
 ## Technologies Used
 
-- **Laravel 11.37.0**: The back-end framework for building the REST API.
+- **Laravel 10.48.25**: The back-end framework for building the REST API.
 - **JWT (JSON Web Token)**: For secure authentication and authorization of users.
 - **PostgreSQL**: Version 13.x for managing and storing the application's data.
 
