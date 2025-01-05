@@ -1,66 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# BWA Crowdfunding REST API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Description
+This project is a copy of the back-end from the **crowdfunding** project available at [https://github.com/fauzan264/crowdfunding/tree/master/backend](https://github.com/fauzan264/crowdfunding/tree/master/backend), adapted and implemented using **Laravel 11.37.0**. The project involves building a secure and scalable REST API with **JWT** for authentication and **PostgreSQL** as the database solution.
 
-## About Laravel
+## Learning Flow
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### API Development with Laravel
+The back-end is built using **Laravel 11.37.0**, leveraging its routing, middleware, and Eloquent ORM for efficient database interaction. The goal is to build an efficient API that handles various crowdfunding operations.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Authentication with JWT
+Implement **JWT** (JSON Web Tokens) for secure, token-based user authentication, allowing users to access protected endpoints after successful login.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### PostgreSQL as the Database
+We use **PostgreSQL** for data management, offering a reliable and robust database solution for storing crowdfunding-related data.
 
-## Learning Laravel
+### Personal Improvisations
+This implementation includes custom optimizations and added features, such as secure JWT handling, and improvements to API performance and user experience.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Technologies Used
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Laravel 11.37.0**: The back-end framework for building the REST API.
+- **JWT (JSON Web Token)**: For secure authentication and authorization of users.
+- **PostgreSQL**: Version 13.x for managing and storing the application's data.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Project Requirements
 
-## Laravel Sponsors
+### Software Requirements
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **PHP (v8.1 or later)**
+  - Required for running the Laravel application.
 
-### Premium Partners
+- **PostgreSQL**
+  - The project uses PostgreSQL as the database for easy data management.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **Node.js (Optional)**
+  - If you're using Laravel for front-end tools (e.g., Mix for asset compilation), **Node.js** might be needed. However, if you're only building an API with Laravel, you don't need **Node.js** unless you're integrating front-end assets.
 
-## Contributing
+## Installation and Setup
+### 1. Clone the repository:
+```bash
+    git clone https://github.com/fauzan264/crowdfunding-rest-api.git
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 2. Navigate to the project directory:
+```bash
+    cd crowdfunding-rest-api
+```
 
-## Code of Conduct
+### 3. Install project dependencies using Composer:
+```bash
+    composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Set up the .env file by copying .env.example:
+```bash
+    cp .env.example .env
+```
 
-## Security Vulnerabilities
+### 5. Generate the application key:
+```bash
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 6. Set up PostgreSQL database details in .env:
+Edit the .env file and update the database connection details:
+```plaintext
+    DB_CONNECTION=pgsql
+    DB_HOST=127.0.0.1
+    DB_PORT=5432
+    DB_DATABASE=your_database
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
+```
 
-## License
+### 7. Run the migrations to set up the database:
+```bash
+    php artisan migrate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 8. Optionally, seed the database with sample data:
+```bash
+    php artisan db:seed
+```
+
+### 9. Start the development server:
+```bash
+    php artisan serve
+```
